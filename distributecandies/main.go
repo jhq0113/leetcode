@@ -31,12 +31,12 @@ func distributeCandies(candyType []int) int {
 		return 1
 	}
 
-	halfLen := len(candyType)/2
+	halfLen := len(candyType) / 2
 	max := 0
 
-	setValue := struct {}{}
+	setValue := struct{}{}
 	set := make(map[int16]struct{}, halfLen)
-	for _,val := range candyType {
+	for _, val := range candyType {
 		if _, exists := set[int16(val)]; !exists {
 			set[int16(val)] = setValue
 			max++
@@ -54,16 +54,16 @@ func main() {
 
 	var (
 		count int
-		min = -10000
-		max = 10000
+		min   = -10000
+		max   = 10000
 		//保证偶数个数
-		num = 2 + 2 * rand.Intn(4999)
+		num       = 2 + 2*rand.Intn(4999)
 		candyType = make([]int, num, num)
 	)
 
-	for index:= 0; index< num; index++ {
+	for index := 0; index < num; index++ {
 		//最大10000， 最小-10000
-		candyType[ index ] = min + rand.Intn(2 * max)
+		candyType[index] = min + rand.Intn(2*max)
 	}
 
 	start := time.Now()
