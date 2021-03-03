@@ -5,5 +5,6 @@
 - [2.跳跃游戏](https://github.com/jhq0113/leetcode/blob/main/canjump/main.go)
 - [3.两数之和](https://github.com/jhq0113/leetcode/blob/main/twosum/main.go)
 - [4.两数相加](https://github.com/jhq0113/leetcode/blob/main/addtwonumbers/main.go)
+- [5.无重复字符的最长子串](https://github.com/jhq0113/leetcode/blob/main/lengthoflongestsubstring/main.go)
 
 <!-- TOC -->
