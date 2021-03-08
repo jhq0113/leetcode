@@ -305,6 +305,66 @@ func (rb *RbTree) Len() (length uint32) {
 	return rb.size
 }
 
+//region 前序遍历
+func preRange(node *Node, handler func(key, value interface{}) (handled bool)) {
+	if node == nil {
+		return
+	}
+	handler(node.Key, node.Value)
+	preRange(node.left, handler)
+	preRange(node.right, handler)
+}
+
+func (rb *RbTree) PreRange(handler func(key, value interface{}) (handled bool)) {
+	preRange(rb.root, handler)
+}
+
+//endregion
+
+//region 中序遍历
+func inRange(node *Node, handler func(key, value interface{}) (handled bool)) {
+	if node == nil {
+		return
+	}
+	preRange(node.left, handler)
+	handler(node.Key, node.Value)
+	preRange(node.right, handler)
+}
+
+func (rb *RbTree) InRange(handler func(key, value interface{}) (handled bool)) {
+	if rb.root == nil {
+		return
+	}
+
+	inRange(rb.root.left, handler)
+	handler(rb.root.Key, rb.root.Value)
+	inRange(rb.root.right, handler)
+}
+
+//endregion
+
+//region 后序遍历
+func postRange(node *Node, handler func(key, value interface{}) (handled bool)) {
+	if node == nil {
+		return
+	}
+	preRange(node.left, handler)
+	preRange(node.right, handler)
+	handler(node.Key, node.Value)
+}
+
+func (rb *RbTree) PostRange(handler func(key, value interface{}) (handled bool)) {
+	if rb.root == nil {
+		return
+	}
+
+	inRange(rb.root.left, handler)
+	inRange(rb.root.right, handler)
+	handler(rb.root.Key, rb.root.Value)
+}
+
+//endregion
+
 //非递归中序遍历
 func (rb *RbTree) Range(handler func(key, value interface{}) (handled bool)) {
 	if rb.root == nil {
@@ -381,14 +441,26 @@ func main() {
 
 	var (
 		index int64 = 1
-		max   int64 = 1000
+		max   int64 = 10
 	)
 
 	for ; index < max; index++ {
 		rbTree.Set(index, time.Now().UnixNano())
 	}
 
-	rbTree.Desc(func(key, value interface{}) (handled bool) {
+	/*rbTree.Desc(func(key, value interface{}) (handled bool) {
+		fmt.Println(key, value)
+		return
+	})*/
+	/*rbTree.PreRange(func(key, value interface{}) (handled bool) {
+		fmt.Println(key, value)
+		return
+	})*/
+	/*rbTree.InRange(func(key, value interface{}) (handled bool) {
+		fmt.Println(key, value)
+		return
+	})*/
+	rbTree.PostRange(func(key, value interface{}) (handled bool) {
 		fmt.Println(key, value)
 		return
 	})
